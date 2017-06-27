@@ -4,7 +4,10 @@ import com.qainfotech.tap.training.resourceio.exceptions.ObjectNotFoundException
 import com.qainfotech.tap.training.resourceio.model.Individual;
 import com.qainfotech.tap.training.resourceio.model.Team;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +25,8 @@ import org.json.simple.JSONObject;
  */
 public class TeamsJsonReader{
 	JSONParser parser=new JSONParser();
+	List<Team> teamList;
+	JSONObject jsonObject;
 
 public List<Individual> getListOfIndividuals() {
 	// throw new UnsupportedOperationException("Not implemented.");
@@ -191,7 +196,8 @@ return activemember;
      * 
      * @return 
      */
-    public List<Team> getListOfTeams(){
+   /**
+    * public List<Team> getListOfTeams(){
         //throw new UnsupportedOperationException("Not implemented.");
     	Object obj=null;
         Map<String,Object> map=null;
@@ -220,6 +226,40 @@ return activemember;
         }
         return ab;
     }
-    
-    }
+    */
+	public List<Team> getListOfTeams() {
+		JSONParser parser = new JSONParser();
+		FileReader readfile = null;
+		try {
+			readfile = new FileReader(new File(
+					"C:\\Users\\arpitbajpai\\Downloads\\assignment-resource-io-master\\src\\main\\resources\\db.json"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+			try {
+				jsonObject = (JSONObject) parser.parse(readfile);
+			} catch (IOException | org.json.simple.parser.ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+		 teamList = new ArrayList<>();
+		JSONArray teams = (JSONArray) jsonObject.get("teams");
+		Map<String, Object> input = new HashMap<String, Object>();
+		for (int i = 0; i < teams.size(); i++) {
+			JSONObject ob = (JSONObject) teams.get(i);
+			input.put("1", ob);
+			Team newindividual = null;
+			newindividual = new Team(input);
+			if (newindividual != null)
+				teamList.add(newindividual);
+			input.remove("1");
+
+		}
+		if (teamList == null)
+			throw new UnsupportedOperationException("Not implemented.");
+		return teamList;
+	}
+	}
+
 
