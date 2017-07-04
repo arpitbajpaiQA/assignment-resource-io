@@ -3,10 +3,8 @@ package com.qainfotech.tap.training.resourceio;
 import com.qainfotech.tap.training.resourceio.exceptions.ObjectNotFoundException;
 import com.qainfotech.tap.training.resourceio.model.Individual;
 import com.qainfotech.tap.training.resourceio.model.Team;
-
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +38,7 @@ public class TeamsYamlReader {
 			ArrayList ab = (ArrayList) result.get("individuals");
 			Map<String, Object> map;
 			for (int i = 0; i < ab.size(); i++) {
-				map = (Map<String, Object>) ab.get(i);
+				map = ((Map<String, Object>) ab.get(i));
 				Individual abc = new Individual(map);
 				listofindividual.add(abc);
 			}
@@ -76,7 +74,7 @@ public class TeamsYamlReader {
 			}
 		}
 		if (match == 0) {
-			throw new ObjectNotFoundException("individual", "id", id.toString());
+			throw new ObjectNotFoundException("Individual", "id", id.toString());
 		} else
 			return individual;
 	}
@@ -108,7 +106,7 @@ public class TeamsYamlReader {
 		}
 
 		if (match == 0) {
-			throw new ObjectNotFoundException("Individual", "name", name);
+			throw new ObjectNotFoundException("Individual", "Name", name);
 		} else
 			return individual;
 	}
