@@ -14,10 +14,26 @@ public class Individual {
     
     public Individual(Map<String, Object> individualMap){
         //throw new UnsupportedOperationException("Not implemented.");
+    	Object[] values = individualMap.values().toArray();
+		@SuppressWarnings("unused")
+		Object jsonObject = new Object();
+		jsonObject = (Object) values[0];
     	this.name= (String)individualMap.get("name");
     	this.id= (Integer)individualMap.get("id");
     	this.active= (Boolean)individualMap.get("active");
-    }
+    	if (values[0] == null)
+			throw new UnsupportedOperationException("Not implemented.");
+	}
+
+	/**
+	 * return values of class Individual
+	 */
+	@Override
+	public String toString() {
+		return "Individual [name=" + name + ", id=" + id + ", active=" + active + "]";
+	}
+
+    
     
     /**
      * get the name of individual
@@ -45,4 +61,5 @@ public class Individual {
         return active;
     }
 }
+
 
