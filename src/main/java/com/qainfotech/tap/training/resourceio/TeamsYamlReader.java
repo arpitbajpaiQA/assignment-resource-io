@@ -112,7 +112,7 @@ public class TeamsYamlReader {
 	}
 
 	/**
-	 * get a list of individual objects who are not active
+	 * get a list of individual object who are not active
 	 * 
 	 * @return List of inactive individuals object
 	 */
